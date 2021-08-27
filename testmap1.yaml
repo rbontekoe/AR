@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  test1: ABC
+  test2: DEF
+kind: ConfigMap
+metadata:
+  name: testmap1
+  namespace: socket-ns

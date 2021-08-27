@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: socket-ns
+#---
+#apiVersion: v1
+#data:
+#  cntname: "ABC"
+#  cntip: "192.168.2.40"
+#  cntport: "30014"
+#kind: ConfigMap
+#metadata:
+#  name: cntmap
+#  namespace: socket-ns
