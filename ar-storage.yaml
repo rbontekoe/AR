@@ -91,7 +91,7 @@ spec:
               configMapKeyRef:
                 name: cntmap
                 key: cntport
-        image: localhost:32000/i_ar:v1.0.11
+        image: localhost:32000/i_ar:v1.0.12
         ports:
         - containerPort: 2001
           name: s1-http
