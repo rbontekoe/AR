@@ -1,19 +1,17 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  labels:
-    istio-injection: enabled
   name: socket-ns
 ---
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cntmap
-  namespace: socket-ns
 data:
   cntname: "ABC"
   cntip: "192.168.2.40"
   cntport: "30014"
+kind: ConfigMap
+metadata:
+  name: cntmap
+  namespace: socket-ns
 ---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -77,10 +75,26 @@ spec:
     spec:
       containers:
       - name: s1-pod
+        env:
+          - name: CNTNAME
+            valueFrom:
+              configMapKeyRef:
+                name: cntmap
+                key: cntname
+          - name: CNTIP
+            valueFrom:
+              configMapKeyRef:
+                name: cntmap
+                key: cntip
+          - name: CNTPORT
+            valueFrom:
+              configMapKeyRef:
+                name: cntmap
+                key: cntport
         image: localhost:32000/i_ar:v1.0.14
         ports:
         - containerPort: 2001
-          name: tcp-s1
+          name: s1-http
         volumeMounts:
         - name: pv-data
           mountPath: /var/lib/postgresql/data
@@ -103,11 +117,10 @@ metadata:
     app: ar
 spec:
   ports:
-  - protocol: TCP
-    port: 2001
-    name: tcp-ar
+  - port: 2001
+    name: http2
     nodePort: 30012
-    targetPort: tcp-s1
+    targetPort: s1-http
   type: NodePort 
   selector:
     app: s1

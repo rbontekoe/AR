@@ -68,7 +68,7 @@ spec:
         image: localhost:32000/i_gl:v1.0.3
         ports:
         - containerPort: 2001
-          name: s2-http
+          name: tcp-s2
         volumeMounts:
         - name: gl-pv-data
           mountPath: /var/lib/postgresql/data
@@ -86,10 +86,11 @@ metadata:
     app: gl
 spec:
   ports:
-  - port: 2001
-    name: http2
+  - protocol: TCP
+    port: 2001
+    name: tcp-gl
     nodePort: 30013
-    targetPort: s2-http
+    targetPort: tcp-s2
   type: NodePort 
   selector:
     app: s2

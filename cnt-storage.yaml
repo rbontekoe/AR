@@ -54,7 +54,7 @@ spec:
         image: localhost:32000/i_cnt:v1.0.1
         ports:
         - containerPort: 2001
-          name: cnt-http
+          name: tcp-cnt
         volumeMounts:
         - name: cnt-data
           mountPath: /var/lib/postgresql/data
@@ -73,9 +73,10 @@ metadata:
 spec:
   ports:
   - port: 2001
-    name: http2
+    protocol: TCP
+    name: tcp-cnt-name
     nodePort: 30014
-    targetPort: cnt-http
+    targetPort: tcp-cnt
   type: NodePort 
   selector:
     app: cnt
