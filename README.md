@@ -1,7 +1,4 @@
 # AR
 
-There ar two ways to run the application:
-1. as IJulia Notebooks
-2. as Kubernetes (microk8s) application.
+To run the (MicroK8s / Kubernetes) application follow the instructions in [client.ipynb](https://github.com/rbontekoe/ar/blob/master/client.ipynb).
 
-See the instruction in client.ipynb.
