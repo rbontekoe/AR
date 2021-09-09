@@ -6,7 +6,7 @@ using Sockets, Serialization, AppliSales, AppliAR, AppliGeneralLedger
         sock = accept(server)
         @async while isopen(sock)
             data = deserialize(sock)
-            client = connect(getaddrinfo("socket-service-gl"), 2001)
+            client = connect(getaddrinfo("gl-service"), 2001)
             if data isa Vector{AppliSales.Order} && isopen(client)
                 entries = AppliAR.process(data; path="/var/lib/postgresql/data/unpaid-invoices.txt")
                 serialize(client, entries)

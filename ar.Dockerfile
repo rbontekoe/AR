@@ -21,11 +21,10 @@ RUN julia -e 'using Pkg; Pkg.add("AppliGeneralLedger"); exit()'
 RUN mkdir /socket
 
 
-COPY ar-start.sh /socket/
+COPY ar-start2.sh /socket/
 
-COPY ar-server.jl /socket/
+COPY ar-server2.jl /socket/
 
 WORKDIR /socket
 
-CMD bash /socket/ar-start.sh
-
+CMD bash /socket/ar-start2.sh
