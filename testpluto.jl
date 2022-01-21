@@ -59,12 +59,6 @@ md"""
 #### Import AppliAR.jl
 """
 
-# ╔═╡ 654bd302-eb36-4a2a-ba73-f3537aa85ece
-pwd()
-
-# ╔═╡ 2db2d514-0f91-482d-8a1f-f5870aa8363e
-rm("/var/data-ar/unpaid-invoices.txt")
-
 # ╔═╡ 19b11012-d491-457e-b8a3-702f308dd374
 md"""
 #### Load the files
@@ -151,8 +145,6 @@ end
 # ╟─f9eb09c0-37e1-41d9-af47-91d86ac43742
 # ╟─8da871f0-d6b8-494d-ab99-bb68d7045d7c
 # ╟─e872e5c6-2221-474e-bf2b-ecca6dbf6004
-# ╠═654bd302-eb36-4a2a-ba73-f3537aa85ece
-# ╠═2db2d514-0f91-482d-8a1f-f5870aa8363e
 # ╠═c6c91330-7aff-46a9-a985-7cf36ae6f8d6
 # ╟─19b11012-d491-457e-b8a3-702f308dd374
 # ╠═74bf5433-9625-4115-8732-e08e439a0c04
