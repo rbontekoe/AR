@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.17.5
+# v0.18.1
 
 using Markdown
 using InteractiveUtils
@@ -12,9 +12,30 @@ using Sockets, Serialization, AppliSales, AppliAR, AppliGeneralLedger, DataFrame
 
 # ╔═╡ eb06a801-89ad-4ba0-90af-b34695fb4f72
 md"""
-### Socket application with MicroK8s on Ubuntu 20.04
+### TCP Socket application with MicroK8s on Ubuntu 20.04
 
-"MicroK8s is a powerful, lightweight, reliable production-ready Kubernetes distribution. It is an enterprise-grade Kubernetes distribution that has a small disk and memory footprint while offering carefully selected add-ons out-the-box, such as Istio, Knative, Grafana, Cilium and more. Whether you are running a production environment or interested in exploring K8s, MicroK8s serves your needs," see Introduction to MicroK8s.
+"MicroK8s is a powerful, lightweight, reliable production-ready Kubernetes distribution. It is an enterprise-grade Kubernetes distribution that has a small disk and memory footprint while offering carefully selected add-ons out-the-box, such as Istio, Knative, Grafana, Cilium and more. Whether you are running a production environment or interested in exploring K8s, MicroK8s serves your needs," see [Introduction to MicroK8s](https://ubuntu.com/blog/introduction-to-microk8s-part-1-2).
+"""
+
+# ╔═╡ a8dbdd3a-0e93-460b-ac95-67402d065560
+md"""
+#### The model
+
+AccountReceivable and GeneralLedger are microservices. We use sockets for communication.
+
+To create statefulset pods we used Suyash Mohan article [Setting up PostgreSQL Database on Kubernetes](https://medium.com/@suyashmohan/setting-up-postgresql-database-on-kubernetes-24a2a192e962) as a guideline.
+```
+                         Store
+                           ↕
+                       Counter (cnt)
+                           ↓
+    testpluto.jl          Invoice Nbr
+          ↓                ↓
+      Orders/ → AccountsReceivable (ar) → Entries → GeneralLedger (gl)
+  BankStatements           ↕                               ↕
+                         Store                           Store
+                  Unpaid/PaidInvoices            Journal/GeneralLedger
+```
 """
 
 # ╔═╡ f9eb09c0-37e1-41d9-af47-91d86ac43742
@@ -68,7 +89,7 @@ md"""
 md"""
 #### Delete the old data files
 
-Go to the terminal and erase the next files:
+Go to the terminal and delete the next files:
 
 sudo rm /var/data-ar/unpaid-invoices.txt /var/data-ar/paid-invoices.txt /var/data-gl/journal.txt /var/data-gl/generalledger.txt /var/data-cnt/seqnbr.txt
 """
@@ -142,6 +163,7 @@ end
 
 # ╔═╡ Cell order:
 # ╟─eb06a801-89ad-4ba0-90af-b34695fb4f72
+# ╟─a8dbdd3a-0e93-460b-ac95-67402d065560
 # ╟─f9eb09c0-37e1-41d9-af47-91d86ac43742
 # ╟─8da871f0-d6b8-494d-ab99-bb68d7045d7c
 # ╟─e872e5c6-2221-474e-bf2b-ecca6dbf6004
