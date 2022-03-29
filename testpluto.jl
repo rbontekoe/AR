@@ -5,7 +5,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ c6c91330-7aff-46a9-a985-7cf36ae6f8d6
-import Pkg; Pkg.add(url="https://github.com/rbontekoe/AppliAR.jl")
+import Pkg; Pkg.add(url="https://github.com/rbontekoe/AppliAR")
 
 # ╔═╡ 74bf5433-9625-4115-8732-e08e439a0c04
 using Sockets, Serialization, AppliSales, AppliAR, AppliGeneralLedger, DataFrames, Query
