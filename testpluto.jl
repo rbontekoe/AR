@@ -110,7 +110,8 @@ end
 
 # ╔═╡ e7f6bcea-8fa8-4fe7-8151-f0be1d2be017
 begin
-	r = AppliGeneralLedger.read_from_file("/var/data-gl/generalledger.txt")
+	#r = AppliGeneralLedger.read_from_file("/var/data-gl/generalledger.txt")
+	r = AppliGeneralLedger.read_from_file("/var/data-ar/generalledger.txt")
 	df = r |> @filter(_.accountid == 1300) |> DataFrame
 	df[:, [:accountid, :customerid, :invoice_nbr, :debit, :credit, :descr]]
 end
@@ -145,10 +146,14 @@ accountid = 1300;
 
 # ╔═╡ 5c6f554e-adc0-4a66-80c8-392e052af8cc
 begin
-	r2 = AppliGeneralLedger.read_from_file("/var/data-gl/generalledger.txt")
+	#r2 = AppliGeneralLedger.read_from_file("/var/data-gl/generalledger.txt")
+	r2 = AppliGeneralLedger.read_from_file("/var/data-ar/generalledger.txt")
 	df2 = r2 |> @filter(_.accountid == accountid) |> DataFrame
 	df2[:, [:accountid, :customerid, :invoice_nbr, :debit, :credit, :descr]]
 end
+
+# ╔═╡ 84fdc1c6-4c95-4c2f-810a-8d164c4a8905
+
 
 # ╔═╡ ad8e9725-bccc-4651-909e-312a5af298ac
 md"""
@@ -181,5 +186,6 @@ end
 # ╟─8748e4ca-d3ac-47e3-b97d-6b083c95e9f6
 # ╠═8cf84474-6db5-451e-bf32-546e042850c4
 # ╠═5c6f554e-adc0-4a66-80c8-392e052af8cc
+# ╠═84fdc1c6-4c95-4c2f-810a-8d164c4a8905
 # ╟─ad8e9725-bccc-4651-909e-312a5af298ac
 # ╠═74629051-dd8c-4e0e-b914-4f523ccbf8d7

@@ -28,22 +28,22 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/var/data-gl"
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: gl-pv-claim
-  namespace: socket-ns
-  labels:
-    app: gl
-spec:
-  storageClassName: microk8s-hostpath
-  capacity:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
+#---
+#kind: PersistentVolumeClaim
+#apiVersion: v1
+#metadata:
+#  name: gl-pv-claim
+#  namespace: socket-ns
+#  labels:
+#    app: gl
+#spec:
+#  storageClassName: microk8s-hostpath
+#  capacity:
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 5Gi
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -75,7 +75,8 @@ spec:
       volumes:
       - name: gl-pv-data
         persistentVolumeClaim:
-          claimName: gl-pv-claim
+          claimName: ar-pv-claim
+#          claimName: gl-pv-claim
 ---
 apiVersion: v1
 kind: Service

@@ -13,23 +13,23 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/data-cnt"
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: cnt-pv-claim
-  namespace: socket-ns
-  labels:
-    app: cnt
-spec:
-  storageClassName: microk8s-hostpath
-  capacity:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
+    path: "/var/data-ar"
+#---
+#kind: PersistentVolumeClaim
+#apiVersion: v1
+#metadata:
+#  name: cnt-pv-claim
+#  namespace: socket-ns
+#  labels:
+#    app: cnt
+#spec:
+#  storageClassName: microk8s-hostpath
+#  capacity:
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 5Gi
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -61,7 +61,8 @@ spec:
       volumes:
       - name: cnt-data
         persistentVolumeClaim:
-          claimName: cnt-pv-claim
+          claimName: ar-pv-claim
+#          claimName: cnt-pv-claim
 ---
 apiVersion: v1
 kind: Service
