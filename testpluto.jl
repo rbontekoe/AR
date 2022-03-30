@@ -91,7 +91,7 @@ md"""
 
 Go to the terminal and delete the next files:
 
-sudo rm /var/data-ar/unpaid-invoices.txt /var/data-ar/paid-invoices.txt /var/data-gl/journal.txt /var/data-gl/generalledger.txt /var/data-cnt/seqnbr.txt
+sudo rm /var/data-ar/*
 """
 
 # ╔═╡ 475e6f3f-e218-4d2d-bfb4-3e80ed334d38
@@ -102,15 +102,17 @@ md"""
 # ╔═╡ 8d0f3ea7-6d4e-4305-bcd4-a4a621fadbd6
 clientside = connect(ip"127.0.0.1", 30012) # connect to accounts receivable pod
 
+# ╔═╡ d8e77594-b65f-4938-afb1-e463cd070f7a
+block_run = false
+
 # ╔═╡ f711fad3-260c-4154-ba51-ed1a12d2f45a
-begin
+if block_run
 	sales = AppliSales.process() # create sales orders
 	serialize(clientside, sales) # send orders to account receivable
 end
 
 # ╔═╡ e7f6bcea-8fa8-4fe7-8151-f0be1d2be017
 begin
-	#r = AppliGeneralLedger.read_from_file("/var/data-gl/generalledger.txt")
 	r = AppliGeneralLedger.read_from_file("/var/data-ar/generalledger.txt")
 	df = r |> @filter(_.accountid == 1300) |> DataFrame
 	df[:, [:accountid, :customerid, :invoice_nbr, :debit, :credit, :descr]]
@@ -122,10 +124,10 @@ md"""
 """
 
 # ╔═╡ 1e52dabe-2477-4c17-9ac5-43b92047bc2a
-stms = AppliAR.read_bank_statements("./bank-kubernetes.csv") # retrieve the bankstatements
-
-# ╔═╡ d7446632-2aa1-40fe-9073-90572a9a0bd8
-serialize(clientside, stms) # create paid invoices and update general ledger
+if block_run
+    stms = AppliAR.read_bank_statements("./bank-kubernetes.csv") # retrieve the bankstatements
+	serialize(clientside, stms) # create paid invoices and update general ledger
+end
 
 # ╔═╡ 8748e4ca-d3ac-47e3-b97d-6b083c95e9f6
 md"""
@@ -146,7 +148,6 @@ accountid = 1300;
 
 # ╔═╡ 5c6f554e-adc0-4a66-80c8-392e052af8cc
 begin
-	#r2 = AppliGeneralLedger.read_from_file("/var/data-gl/generalledger.txt")
 	r2 = AppliGeneralLedger.read_from_file("/var/data-ar/generalledger.txt")
 	df2 = r2 |> @filter(_.accountid == accountid) |> DataFrame
 	df2[:, [:accountid, :customerid, :invoice_nbr, :debit, :credit, :descr]]
@@ -178,11 +179,11 @@ end
 # ╟─5f81a10d-052f-44c9-ad48-a9c290450035
 # ╟─475e6f3f-e218-4d2d-bfb4-3e80ed334d38
 # ╠═8d0f3ea7-6d4e-4305-bcd4-a4a621fadbd6
+# ╠═d8e77594-b65f-4938-afb1-e463cd070f7a
 # ╠═f711fad3-260c-4154-ba51-ed1a12d2f45a
 # ╠═e7f6bcea-8fa8-4fe7-8151-f0be1d2be017
 # ╟─b515d44e-bc74-4293-aa1c-9cce8cfafc06
 # ╠═1e52dabe-2477-4c17-9ac5-43b92047bc2a
-# ╠═d7446632-2aa1-40fe-9073-90572a9a0bd8
 # ╟─8748e4ca-d3ac-47e3-b97d-6b083c95e9f6
 # ╠═8cf84474-6db5-451e-bf32-546e042850c4
 # ╠═5c6f554e-adc0-4a66-80c8-392e052af8cc
