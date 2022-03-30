@@ -27,7 +27,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/data-gl"
+    path: "/var/data-ar"
 #---
 #kind: PersistentVolumeClaim
 #apiVersion: v1
