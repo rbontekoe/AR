@@ -60,10 +60,10 @@ ar-statefulset-0    2/2     Running   0          97m
 md"""
 #### If pods are not running use next commands from the terminal
 - Install microk8s: sudo snap install microk8s --classic
-- Enable microk8s build-in registry: microk8s enable registry
+- Enable microk8s build-in apps: microk8s enable registry dashboard dns istio storage
 - Clone files from GitHub: git clone https://github.com/rbontekoe/ar.git
 - Enter the folder with the downloaded files: cd ar
-- Download Julia 1.6.0: curl -O https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.0-linux-x86_64.tar.gz
+- Download Julia 1.6.5: curl -O https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.5-linux-x86_64.tar.gz
 - Create accounts receivable image: docker build --no-cache -f ar.Dockerfile -t localhost:32000/i_ar:v1.0.16 .
 - Copy to local registry: docker push localhost:32000/i_ar:v1.0.16
 - Create general ledger image: docker build --no-cache -f gl.Dockerfile -t localhost:32000/i_gl:v1.0.3 .

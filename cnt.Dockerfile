@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ENV julia=julia-1.6.0
+ENV julia=julia-1.6.5
 
 ENV julia_full=${julia}-linux-x86_64
 
