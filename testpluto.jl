@@ -59,20 +59,20 @@ ar-statefulset-0    2/2     Running   0          97m
 # ╔═╡ 8da871f0-d6b8-494d-ab99-bb68d7045d7c
 md"""
 #### If pods are not running use next commands from the terminal
-- Install microk8s: sudo snap install microk8s --classic
-- Enable microk8s build-in apps: microk8s enable registry dashboard dns istio storage
-- Clone files from GitHub: git clone https://github.com/rbontekoe/ar.git
-- Enter the folder with the downloaded files: cd ar
-- Download Julia 1.6.5: curl -O https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.5-linux-x86_64.tar.gz
-- Create accounts receivable image: docker build --no-cache -f ar.Dockerfile -t localhost:32000/i_ar:v1.0.16 .
-- Copy to local registry: docker push localhost:32000/i_ar:v1.0.16
-- Create general ledger image: docker build --no-cache -f gl.Dockerfile -t localhost:32000/i_gl:v1.0.3 .
-- Copy to local registry: docker push localhost:32000/i_gl:v1.0.3
-- Create counter image: docker build --no-cache -f cnt.Dockerfile -t localhost:32000/i_cnt:v1.0.1 .
-- Copy to local registry: docker push localhost:32000/i_cnt:v1.0.1
-- microk8s.kubectl apply -f ar-storage.yaml
-- microk8s.kubectl apply -f cnt-storage.yaml
-- microk8s.kubectl apply -f gl-storage.yaml
+- Install microk8s: **sudo snap install microk8s --classic**
+- Enable microk8s build-in apps: **microk8s enable registry dashboard dns istio storage**
+- Clone files from GitHub: **git clone https://github.com/rbontekoe/ar.git**
+- Enter the folder with the downloaded files: **cd ar**
+- Download Julia 1.6.5: **curl -O https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.5-linux-x86_64.tar.gz**
+- Create accounts receivable image: **docker build --no-cache -f ar.Dockerfile -t localhost:32000/i_ar:v1.0.16 .**
+- Copy to local registry: **docker push localhost:32000/i_ar:v1.0.16**
+- Create general ledger image: **docker build --no-cache -f gl.Dockerfile -t localhost:32000/i_gl:v1.0.3 .**
+- Copy to local registry: **docker push localhost:32000/i_gl:v1.0.3**
+- Create counter image: **docker build --no-cache -f cnt.Dockerfile -t localhost:32000/i_cnt:v1.0.1 .**
+- Copy to local registry: **docker push localhost:32000/i_cnt:v1.0.1**
+- **microk8s.kubectl apply -f ar-storage.yaml**
+- **microk8s.kubectl apply -f cnt-storage.yaml**
+- **microk8s.kubectl apply -f gl-storage.yaml**
 """
 
 # ╔═╡ e872e5c6-2221-474e-bf2b-ecca6dbf6004
