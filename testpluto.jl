@@ -102,12 +102,14 @@ md"""
 # ╔═╡ 8d0f3ea7-6d4e-4305-bcd4-a4a621fadbd6
 clientside = connect(ip"127.0.0.1", 30012) # connect to accounts receivable pod
 
-# ╔═╡ d8e77594-b65f-4938-afb1-e463cd070f7a
-block_run = false
+# ╔═╡ 77310d18-97a1-4aa6-8cd8-626ce6784444
+sales = AppliSales.process() # create sales orders
+
+# ╔═╡ 023ea504-8721-4af7-9860-661642ec1c22
+block_run = false # # Prohibit execution when the notebook is started
 
 # ╔═╡ f711fad3-260c-4154-ba51-ed1a12d2f45a
 if block_run
-	sales = AppliSales.process() # create sales orders
 	serialize(clientside, sales) # send orders to account receivable
 end
 
@@ -123,9 +125,11 @@ md"""
 #### Load and process the bank statements
 """
 
+# ╔═╡ 10e1d308-1220-4326-be70-4c67264061f1
+stms = AppliAR.read_bank_statements("./bank-kubernetes.csv") # retrieve the bankstatements
+
 # ╔═╡ 1e52dabe-2477-4c17-9ac5-43b92047bc2a
 if block_run
-    stms = AppliAR.read_bank_statements("./bank-kubernetes.csv") # retrieve the bankstatements
 	serialize(clientside, stms) # create paid invoices and update general ledger
 end
 
@@ -179,10 +183,12 @@ end
 # ╟─5f81a10d-052f-44c9-ad48-a9c290450035
 # ╟─475e6f3f-e218-4d2d-bfb4-3e80ed334d38
 # ╠═8d0f3ea7-6d4e-4305-bcd4-a4a621fadbd6
-# ╠═d8e77594-b65f-4938-afb1-e463cd070f7a
+# ╠═77310d18-97a1-4aa6-8cd8-626ce6784444
+# ╠═023ea504-8721-4af7-9860-661642ec1c22
 # ╠═f711fad3-260c-4154-ba51-ed1a12d2f45a
 # ╠═e7f6bcea-8fa8-4fe7-8151-f0be1d2be017
 # ╟─b515d44e-bc74-4293-aa1c-9cce8cfafc06
+# ╠═10e1d308-1220-4326-be70-4c67264061f1
 # ╠═1e52dabe-2477-4c17-9ac5-43b92047bc2a
 # ╟─8748e4ca-d3ac-47e3-b97d-6b083c95e9f6
 # ╠═8cf84474-6db5-451e-bf32-546e042850c4
