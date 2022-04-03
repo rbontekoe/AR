@@ -113,13 +113,6 @@ if block_run
 	serialize(clientside, sales) # send orders to account receivable
 end
 
-# ╔═╡ e7f6bcea-8fa8-4fe7-8151-f0be1d2be017
-begin
-	r = AppliGeneralLedger.read_from_file("/var/data-ar/generalledger.txt")
-	df = r |> @filter(_.accountid == 1300) |> DataFrame
-	df[:, [:accountid, :customerid, :invoice_nbr, :debit, :credit, :descr]]
-end
-
 # ╔═╡ b515d44e-bc74-4293-aa1c-9cce8cfafc06
 md"""
 #### Load and process the bank statements
@@ -171,6 +164,16 @@ begin
 	result = DataFrame(r1)
 end
 
+# ╔═╡ 4e8a3c17-4e2a-4fe1-8a5a-dcaf2082c852
+df = r |> @filter(_.accountid == 1300) |> DataFrame
+
+# ╔═╡ e7f6bcea-8fa8-4fe7-8151-f0be1d2be017
+begin
+	r = AppliGeneralLedger.read_from_file("/var/data-ar/generalledger.txt")
+	df = r |> @filter(_.accountid == 1300) |> DataFrame
+	df[:, [:accountid, :customerid, :invoice_nbr, :debit, :credit, :descr]]
+end
+
 # ╔═╡ Cell order:
 # ╟─eb06a801-89ad-4ba0-90af-b34695fb4f72
 # ╟─a8dbdd3a-0e93-460b-ac95-67402d065560
@@ -196,3 +199,4 @@ end
 # ╠═84fdc1c6-4c95-4c2f-810a-8d164c4a8905
 # ╟─ad8e9725-bccc-4651-909e-312a5af298ac
 # ╠═74629051-dd8c-4e0e-b914-4f523ccbf8d7
+# ╠═4e8a3c17-4e2a-4fe1-8a5a-dcaf2082c852
