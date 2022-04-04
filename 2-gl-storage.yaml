@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: s2-pod
-        image: localhost:32000/i_gl:v1.0.5
+        image: localhost:32000/i_gl:v1.0.4
         ports:
         - containerPort: 2001
           name: tcp-s2
