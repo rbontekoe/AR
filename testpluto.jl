@@ -105,13 +105,13 @@ clientside = connect(ip"127.0.0.1", 30012) # connect to accounts receivable pod
 # ╔═╡ 77310d18-97a1-4aa6-8cd8-626ce6784444
 sales = AppliSales.process() # create sales orders
 
-# ╔═╡ 023ea504-8721-4af7-9860-661642ec1c22
-block_run = true # Prohibit execution when the notebook is started
+# ╔═╡ 66de6da9-1349-4a17-8e90-f87b8b675ca9
+block_run = false
 
 # ╔═╡ f711fad3-260c-4154-ba51-ed1a12d2f45a
-#if block_run
+if block_run
 	serialize(clientside, sales) # send orders to account receivable
-#end
+end
 
 # ╔═╡ e7f6bcea-8fa8-4fe7-8151-f0be1d2be017
 begin
@@ -126,7 +126,9 @@ md"""
 """
 
 # ╔═╡ 10e1d308-1220-4326-be70-4c67264061f1
-stms = AppliAR.read_bank_statements("./bank-kubernetes.csv") # retrieve the bankstatements
+if block_run
+    stms = AppliAR.read_bank_statements("./bank-kubernetes.csv") # retrieve the bankstatements
+end
 
 # ╔═╡ 1e52dabe-2477-4c17-9ac5-43b92047bc2a
 if block_run
@@ -157,9 +159,6 @@ begin
 	df2[:, [:accountid, :customerid, :invoice_nbr, :debit, :credit, :descr]]
 end
 
-# ╔═╡ 84fdc1c6-4c95-4c2f-810a-8d164c4a8905
-
-
 # ╔═╡ ad8e9725-bccc-4651-909e-312a5af298ac
 md"""
 #### Display the status of the unpaid invoices
@@ -174,25 +173,24 @@ end
 # ╔═╡ Cell order:
 # ╟─eb06a801-89ad-4ba0-90af-b34695fb4f72
 # ╟─a8dbdd3a-0e93-460b-ac95-67402d065560
-# ╠═f9eb09c0-37e1-41d9-af47-91d86ac43742
-# ╠═8da871f0-d6b8-494d-ab99-bb68d7045d7c
+# ╟─f9eb09c0-37e1-41d9-af47-91d86ac43742
+# ╟─8da871f0-d6b8-494d-ab99-bb68d7045d7c
 # ╟─e872e5c6-2221-474e-bf2b-ecca6dbf6004
 # ╠═c6c91330-7aff-46a9-a985-7cf36ae6f8d6
-# ╠═19b11012-d491-457e-b8a3-702f308dd374
+# ╟─19b11012-d491-457e-b8a3-702f308dd374
 # ╠═74bf5433-9625-4115-8732-e08e439a0c04
-# ╠═5f81a10d-052f-44c9-ad48-a9c290450035
-# ╠═475e6f3f-e218-4d2d-bfb4-3e80ed334d38
+# ╟─5f81a10d-052f-44c9-ad48-a9c290450035
+# ╟─475e6f3f-e218-4d2d-bfb4-3e80ed334d38
 # ╠═8d0f3ea7-6d4e-4305-bcd4-a4a621fadbd6
-# ╠═77310d18-97a1-4aa6-8cd8-626ce6784444
-# ╠═023ea504-8721-4af7-9860-661642ec1c22
+# ╟─77310d18-97a1-4aa6-8cd8-626ce6784444
+# ╠═66de6da9-1349-4a17-8e90-f87b8b675ca9
 # ╠═f711fad3-260c-4154-ba51-ed1a12d2f45a
 # ╠═e7f6bcea-8fa8-4fe7-8151-f0be1d2be017
-# ╠═b515d44e-bc74-4293-aa1c-9cce8cfafc06
+# ╟─b515d44e-bc74-4293-aa1c-9cce8cfafc06
 # ╠═10e1d308-1220-4326-be70-4c67264061f1
-# ╠═1e52dabe-2477-4c17-9ac5-43b92047bc2a
-# ╠═8748e4ca-d3ac-47e3-b97d-6b083c95e9f6
+# ╟─1e52dabe-2477-4c17-9ac5-43b92047bc2a
+# ╟─8748e4ca-d3ac-47e3-b97d-6b083c95e9f6
 # ╠═8cf84474-6db5-451e-bf32-546e042850c4
 # ╠═5c6f554e-adc0-4a66-80c8-392e052af8cc
-# ╠═84fdc1c6-4c95-4c2f-810a-8d164c4a8905
-# ╠═ad8e9725-bccc-4651-909e-312a5af298ac
+# ╟─ad8e9725-bccc-4651-909e-312a5af298ac
 # ╠═74629051-dd8c-4e0e-b914-4f523ccbf8d7
