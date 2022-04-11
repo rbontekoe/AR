@@ -15,8 +15,8 @@ using Sockets, Serialization, AppliSales, AppliAR, AppliGeneralLedger
                 entries = AppliAR.process(unpaid_inv, data; path="/var/lib/postgresql/data/paid-invoices.txt")
                 serialize(client, entries)
             elseif data isa String && data == "status"
-                #aging_report = AppliAR.aging("/var/lib/postgresql/data/unpaid-invoices.txt", "/var/lib/postgresql/data/paid-invoices.txt")
-                serialize(sock, "Hello world!")
+                aging_report = AppliAR.aging("/var/lib/postgresql/data/unpaid-invoices.txt", "/var/lib/postgresql/data/paid-invoices.txt")
+                serialize(sock, aging_report)
             end
         end   
     end
