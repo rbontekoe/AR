@@ -1,3 +1,50 @@
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  name: socket-ns
+#---
+#kind: StorageClass
+#apiVersion: storage.k8s.io/v1
+#metadata:
+#  name: microk8s-hostpath
+#  namespace: socket-ns
+#  annotations:
+#    storageclass.kubernetes.io/is-default-class: "true"
+#provisioner: microk8s.io/hostpath
+#---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: gl-pv
+  namespace: socket-ns
+  labels:
+    app: gl
+    type: local
+spec:
+  storageClassName: microk8s-hostpath
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/data-gl"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: gl-pv-claim
+  namespace: socket-ns
+  labels:
+    app: gl
+spec:
+  storageClassName: microk8s-hostpath
+  capacity:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -28,12 +75,12 @@ spec:
       volumes:
       - name: gl-pv-data
         persistentVolumeClaim:
-          claimName: ar-pv-claim
+          claimName: gl-pv-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: gl-service
+  name: socket-service-gl
   namespace: socket-ns
   labels:
     app: gl

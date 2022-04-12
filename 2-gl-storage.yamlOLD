@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gl-statefulset
+  namespace: socket-ns
+  labels:
+    app: gl
+spec:
+  serviceName: "socket1"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: s2
+  template:
+    metadata:
+      labels:
+        app: s2
+    spec:
+      containers:
+      - name: s2-pod
+        image: localhost:32000/i_gl:v1.0.4
+        ports:
+        - containerPort: 2001
+          name: tcp-s2
+        volumeMounts:
+        - name: gl-pv-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: gl-pv-data
+        persistentVolumeClaim:
+          claimName: ar-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gl-service
+  namespace: socket-ns
+  labels:
+    app: gl
+spec:
+  ports:
+  - protocol: TCP
+    port: 2001
+    name: tcp-gl
+    nodePort: 30013
+    targetPort: tcp-s2
+  type: NodePort 
+  selector:
+    app: s2
