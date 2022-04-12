@@ -35,7 +35,7 @@ metadata:
 spec:
   storageClassName: microk8s-hostpath
   capacity:
-    storage: 5Gi
+    storage: 15Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
