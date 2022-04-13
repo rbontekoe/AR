@@ -20,6 +20,9 @@ using Sockets, Serialization, AppliSales, AppliAR, AppliGeneralLedger
             elseif data isa String && data == "gl-status"
                 ledger = AppliGeneralLedger.read_from_file("/var/lib/postgresql/data/generalledger.txt")
                 serialize(sock, ledger)
+            elseif data isa String && data == "remove"
+                rm -f /var/lib/postgresql/data/*
+                serialize(sock, "All files are removed")
             end
         end   
     end
