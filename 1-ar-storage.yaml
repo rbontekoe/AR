@@ -77,7 +77,7 @@ spec:
     spec:
       containers:
       - name: s1-pod
-        image: localhost:32000/i_ar:v1.3.31
+        image: localhost:32000/i_ar:v1.3.32
         ports:
         - containerPort: 2001
           name: tcp-s1
