@@ -66,7 +66,7 @@ metadata:
     app: ar
 spec:
   serviceName: "ar"
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: s1
