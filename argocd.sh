@@ -1,0 +1,32 @@
+#############################################
+#   Run this file when working with ArgoCD  #
+#   and microk8sto to update the images     # 
+#   after changes were in the repo.         #
+#############################################
+
+# Create versions from YAML files
+export version_ar=$(cat 1-ar-storage.yaml | grep localhost:32000/i_ar | cut -d ":" -f4)
+export version_gl=$(cat 2-gl-storage.yaml | grep localhost:32000/i_gl | cut -d ":" -f4)
+export version_cnt=$(cat 3-cnt-storage.yaml | grep localhost:32000/i_cnt | cut -d ":" -f4)
+
+# Create new Docker images when version has been changed
+curl -O https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.5-linux-x86_64.tar.gz
+docker builder prune -f
+if [[ $version_ar > $(cat version_ar.txt) ]]; then docker build --no-cache -f ar.Dockerfile -t localhost:32000/i_ar:$version_ar .;  docker push localhost:32000/i_ar:$version_ar;else echo $version_ar 'of ar not greater'; fi
+if [[ $version_gl > $(cat version_gl.txt); then docker build --no-cache -f gl.Dockerfile -t localhost:32000/i_gl:$version_gl .; docker push localhost:32000/i_gl:$version_gl; else echo $version_gl 'of gl not greater'; fi
+if [[ $version_cnt > $(cat version_cnt.txt) ]]; then docker build --no-cache -f cnt.Dockerfile -t localhost:32000/i_cnt:$version_cnt .; docker push localhost:32000/i_cnt:$version_cnt; else echo $version_cnt 'of cnt not greater'; fi
+
+# Push changes to repo and trigger ArgoCD
+if 
+  [[ $version_ar > $(cat version_ar.txt) || $version_gl > $(cat version_gl.txt) || $version_cnt > $(cat version_cnt.txt) ]]
+then 
+  echo $version_ar > version_ar.txt
+  echo $version_gl > version_gl.txt
+  echo $version_cnt > version_cnt.txt
+  rm -f julia-1.6.5-linux-x86_64.tar.gz
+  git add -A && git commit -m "Version: $version_ar $version_gl $version_cnt" && git push
+  argocd login xxx.xxx.xxx.xxx --insecure --username xxxxx --password xxxxxxxxxxxxxxxx
+  argocd app sync ar-app
+else 
+  echo "No changes"
+fi
