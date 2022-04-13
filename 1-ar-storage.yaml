@@ -24,23 +24,23 @@ metadata:
     storageclass.kubernetes.io/is-default-class: "true"
 provisioner: microk8s.io/hostpath
 ---
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: ar-pv
-  namespace: socket-ns
-  labels:
-    app: ar
-    type: local
-spec:
-  storageClassName: microk8s-hostpath
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/var/data-ar"
----
+#kind: PersistentVolume
+#apiVersion: v1
+#metadata:
+#  name: ar-pv
+#  namespace: socket-ns
+#  labels:
+#    app: ar
+#    type: local
+#spec:
+#  storageClassName: microk8s-hostpath
+#  capacity:
+#    storage: 5Gi
+#  accessModes:
+#    - ReadWriteOnce
+#  hostPath:
+#    path: "/var/data-ar"
+#---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -66,7 +66,7 @@ metadata:
     app: ar
 spec:
   serviceName: "ar"
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: s1
