@@ -17,6 +17,9 @@ using Sockets, Serialization, AppliSales, AppliAR, AppliGeneralLedger
             elseif data isa String && data == "status"
                 aging_report = AppliAR.aging("/var/lib/postgresql/data/unpaid-invoices.txt", "/var/lib/postgresql/data/paid-invoices.txt")
                 serialize(sock, aging_report)
+            elseif data isa String && data == "gl-status"
+                ledger = AppliGeneralLedger.read_from_file("/var/lib/postgresql/data/generalledger.txt")
+                serialize(sock, ledger)
             end
         end   
     end
