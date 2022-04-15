@@ -1,9 +1,3 @@
-#############################################
-#   Run this file when working with ArgoCD  #
-#   and microk8sto to update the images     # 
-#   after changes were in the repo.         #
-#############################################
-
 #!/bin/bash
 # Create versions from YAML files
 export version_ar=$(cat 1-ar-storage.yaml | grep localhost:32000/i_ar | cut -d ":" -f4)
