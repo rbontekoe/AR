@@ -21,8 +21,7 @@ using Sockets, Serialization, AppliSales, AppliAR, AppliGeneralLedger
                 ledger = AppliGeneralLedger.read_from_file("/var/lib/postgresql/data/generalledger.txt")
                 serialize(sock, ledger)
             elseif data isa String && data == "remove"
-                cd /var/lib/postgresql/data/
-                rm *
+                foreach(rm, filter(endswith(".txt"), readdir("/var/lib/postgresql/data/",join=true)))
                 serialize(sock, "All files are removed")
             end
         end   
