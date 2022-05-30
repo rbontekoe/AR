@@ -15,32 +15,32 @@ data:
   cntip: "192.168.2.40"
   cntport: "30014"
 ---
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: microk8s-hostpath
-  namespace: socket-ns
-  annotations:
-    storageclass.kubernetes.io/is-default-class: "true"
-provisioner: microk8s.io/hostpath
----
-#kind: PersistentVolume
-#apiVersion: v1
+#kind: StorageClass
+#apiVersion: storage.k8s.io/v1
 #metadata:
-#  name: ar-pv
+#  name: microk8s-hostpath
 #  namespace: socket-ns
-#  labels:
-#    app: ar
-#    type: local
-#spec:
-#  storageClassName: microk8s-hostpath
-#  capacity:
-#    storage: 5Gi
-#  accessModes:
-#    - ReadWriteOnce
-#  hostPath:
-#    path: "/var/data-ar"
+#  annotations:
+#    storageclass.kubernetes.io/is-default-class: "true"
+#provisioner: microk8s.io/hostpath
 #---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: ar-pv
+  namespace: socket-ns
+  labels:
+    app: ar
+    type: local
+spec:
+  storageClassName: microk8s-hostpath
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/data-ar"
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
